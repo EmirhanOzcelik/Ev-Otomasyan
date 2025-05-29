@@ -1,0 +1,33 @@
+GENEL KULLANIM KLAVUZU
+----------------------
+
+Makine Tarihi Güncelle Butonu:
+- Bu butonla makine tarih ve saati güncellenir.
+- Her server girişinizde bu butona tıklamanız tavsiye edilir.
+- Telefonunuzun tarihinin doğru olduğundan emin olun.
+
+Kapı Açık Kalma Süresi:
+- Kapının ne kadar süreyle şifresiz giriş yapılabileceğini ayarlarsınız.
+- Süreyi iptal etmek ve sıfırlamak isterseniz "Kapıyı Aktif Et" butonuna tıklayın.
+
+Kapıyı Aktif Et:
+- Kapıyı şifreli giriş moduna geçirir.
+- Girişler artık şifre kontrolü ile yapılır.
+
+Kapıyı Pasif Et:
+- Kapıyı şifresiz giriş moduna geçirir.
+- Siz değiştirene kadar süresiz şifresiz giriş sağlanır.
+- Kilit devre dışı bırakılır.
+
+WiFi Ağlarını Tara:
+- Çevredeki WiFi ağlarını tarar ve listeler.
+- Tıkladıktan sonra 5 saniye beklemeniz tavsiye edilir.
+
+Bağlan:
+- Listeden bağlanmak istediğiniz ağı seçin.
+- Şifre kısmına doğru şifreyi yazın ve "Bağlan" butonuna tıklayın.
+- Bu işlem makineyi internete bağlar.
+
+Makine Mesajları:
+- Burada makinede gerçekleşen olayları görebilirsiniz.
+- Olayların okunaklı kaydını takip edebilirsiniz.

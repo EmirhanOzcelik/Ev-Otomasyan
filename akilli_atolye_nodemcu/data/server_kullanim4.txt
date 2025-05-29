@@ -1,0 +1,3 @@
+Sensor Kalibrasyonu Kullanım Kılavuzu
+
+**Not**: Bu özellik **henüz demo aşamasındadır** ve tam olarak çalışmamaktadır.

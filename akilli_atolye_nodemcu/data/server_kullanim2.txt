@@ -1,0 +1,21 @@
+RFID KART KAYDEDİCİ KULLANIM KILAVUZU
+-------------------------------------
+
+RFID kartınızla giriş yapmak istiyorsanız önce kartı kaydetmelisiniz.
+
+NOT:
+- Kimlik kartları, banka kartları gibi sürekli ID değiştiren çipli kartları kaydetmeyiniz.
+- Bu kartlar her okutulduğunda farklı kimlik oluşturur.
+- Bunun dışında otobüs kartlarınız, anahtarlık tipi RFID kartlarınız (çipsiz ve tek ID kaynağı olan kartlar) kaydedilebilir.
+
+KULLANIM:
+- Uygulamayı başlatın.
+- Başlattıktan sonra kapıdaki LCD ekranda "RFID Kart Kaydetme" ekranı açılacaktır.
+- 15 saniye boyunca kart kaydetmeniz beklenir.
+- 15 saniye içinde işlem yapılmazsa zaman aşımı olur ve program sonlanır.
+- Kartınızı kaydetmek için tek yapmanız gereken, kartı okuyucuya yaklaştırıp çekmektir.
+- Eğer kart zaten kayıtlıysa tekrar kaydedilmeyecektir.
+
+Programı Sonlandırmak İçin:
+- Hiçbir şey yapmayarak 15 saniyenin dolmasını bekleyebilirsiniz.
+- Veya "Ana Menüye Dön" butonuna tıklayarak manuel olarak sonlandırabilirsiniz.

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontrol Paneli</title>
+  <style>
+    :root {
+      --bg-color: #111827;
+      --text-color: #f1f5f9;
+      --accent: #facc15;
+      --secondary: #60a5fa;
+      --button-bg: #3b82f6;
+      --button-hover: #facc15;
+      --button-text-hover: #111;
+      --box-shadow: rgba(0, 0, 0, 0.4);
+      --card-bg: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 2px 6px var(--box-shadow);
+      margin-bottom: 40px;
+    }
+
+    .name-meaning-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .name-card {
+      position: relative;
+      background-color: var(--card-bg);
+      border: 2px solid #2d2d2d;
+      border-radius: 12px;
+      padding: 40px 20px 20px 20px;
+      width: 260px;
+      box-shadow: 0 4px 10px var(--box-shadow);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .name-card:hover {
+      transform: scale(1.03);
+    }
+
+    .name-title {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--bg-color);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 600;
+      box-shadow: 0 2px 6px var(--box-shadow);
+    }
+
+    .name-card span {
+      display: block;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #f87171;
+      font-weight: 500;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .button {
+      background-color: var(--button-bg);
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
+      transition: 0.25s all ease-in-out;
+    }
+
+    .button:hover {
+      background-color: var(--button-hover);
+      color: var(--button-text-hover);
+      transform: scale(1.05);
+      box-shadow: 0 5px 12px rgba(250, 204, 21, 0.4);
+    }
+
+    h3 {
+      font-size: 22px;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    input[type="range"],
+    select,
+    textarea {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 15px;
+      width: 300px;
+      border-radius: 6px;
+      background-color: #1e293b;
+      color: #f1f5f9;
+      border: 1px solid #475569;
+      transition: 0.3s ease;
+      resize: none;
+    }
+
+    input[type="range"]:hover,
+    select:hover,
+    textarea:hover {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      width: 320px;
+    }
+
+    .info-box {
+      background-color: #2e0206;
+      color: #bcc33e;
+      padding: 20px;
+      margin-top: 60px;
+      border-radius: 10px;
+      font-size: 15px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 3px 8px var(--box-shadow);
+    }
+
+
+    footer {
+      font-size: 14px;
+      color: #9ca3af;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #fde68a;
+    }
+
+    @media (max-width: 768px) {
+      .name-card {
+        width: 90%;
+      }
+
+      textarea {
+        width: 90%;
+      }
+    }
+
+    #baglanButton {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #baglanButton:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    #baglanButton:enabled {
+      background-color: #4CAF50;
+    }
+
+    #baglanButton:active {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Mucithane Kontrol Paneli</h1>
+
+  <div class="name-meaning-container">
+    <div class="name-card">
+      <div class="name-title">Esmaul Husna</div>
+      <span id="nameDisplay"></span>
+      <span id="meaningDisplay"></span>
+    </div>
+    <div class="name-card">
+      <div class="name-title">Kur'an-ı Kerim</div>
+      <span id="nameDisplay2"></span>
+      <span id="meaningDisplay2"></span>
+    </div>
+    <div class="name-card">
+      <div class="name-title">40 Hadis</div>
+      <span id="nameDisplay3"></span>
+      <span id="meaningDisplay3"></span>
+    </div>
+    <div class="name-card">
+      <div class="name-title">Siyer-i Nebevi</div>
+      <span id="nameDisplay4"></span>
+      <span id="meaningDisplay4"></span>
+    </div>
+  </div>
+
+  <div class="section">
+    <button onclick="zamanGonder()" class="button">Makine Tarihi Güncelle</button>
+  </div>
+
+  <div class="section">
+    <h3>Kapı Açık Kalma Süresi:</h3>
+    <input type="range" id="sureSecimi" min="0" max="360" step="1" value="0" oninput="gosterSecim(this.value)" />
+    <div>
+      <span id="saatDegeri">0</span> Saat
+      <span id="dakikaDegeri">00</span> Dakika
+    </div>
+    <br />
+    <button onclick="sureGonder()" class="button">Süreyi Gönder</button>
+  </div>
+
+  <div class="section">
+    <button onclick="fetchPost('/kapi', 'islem=aktif')" class="button">Kapıyı Aktif Et</button>
+    <button onclick="fetchPost('/kapi', 'islem=pasif')" class="button">Kapıyı Pasif Et</button>
+  </div>
+
+
+
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 20px;">
+
+    <!-- Üst butonlar -->
+    <div style="display: flex; gap: 12px;">
+      <button onclick="tarama_buton()" class="button">Wifi Ağlarını Tara</button>
+      <button id="baglanButton" onclick="baglanWifi()" class="button">Bağlan</button>
+    </div>
+
+    <!-- Ağ listesi ve şifre girişi -->
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+
+      <select id="ssidList" style="padding: 10px; min-width: 160px; margin-top: -3px;">
+        <option>Bağlanılacak Wifi Ağı</option>
+      </select>
+
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input type="password" id="wifiPassword" placeholder="Şifre" style="padding: 10px; width: 140px;">
+        <button type="button" id="togglePassword" onclick="togglePassword()" class="button" style="padding: 8px;">
+          👁️
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="section" style="display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
+      <h4>Makine Mesajları</h4>
+      <textarea id="mesajKutusu1" readonly rows="8" cols="40" style="overflow-y: auto; resize: none;"></textarea>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
+      <h4>Kayıtlı Keypad Şifreleri</h4>
+      <textarea id="mesajKutusu2" readonly rows="8" cols="40" style="overflow-y: auto; resize: none;"></textarea>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; margin: 10px;">
+      <h4>Kayıtlı RFID Kartları</h4>
+      <textarea id="mesajKutusu3" readonly rows="8" cols="40" style="overflow-y: auto; resize: none;"></textarea>
+    </div>
+  </div>
+
+
+  <div class="section">
+    <button onclick="fetchGet('/rfid_kart_kaydet')" class="button">RFID Kart Kaydet</button>
+    <button onclick="fetchGet('/keypad_sifre_olustur')" class="button">Keypad Şifre Oluştur</button>
+    <button onclick="fetchGet('/sensor_kalibrasyon')" class="button">Sensör Kalibrasyon</button>
+    <button onclick="fetchGet('/motor_kalibrasyon')" class="button">Motor Kalibrasyon</button>
+    <button onclick="fetchGet('/ana_menu')" class="button">Ana Menüye Dön</button>
+  </div>
+
+
+  <div style="text-align: center; margin-top: 20px;">
+    <select id="klavuzSec" onchange="klavuzYukle()" style="padding: 5px; font-size: 16px;">
+      <option value="">Kılavuz Seçin</option>
+      <option value="/server_kullanim1.txt">Genel Kullanım Kılavuzu</option>
+      <option value="/server_kullanim2.txt">RFID Kart Kaydetme Kılavuzu</option>
+      <option value="/server_kullanim3.txt">Keypad Şifre Oluşturma Kılavuzu</option>
+      <option value="/server_kullanim4.txt">Sensör Kalibrasyon Kılavuzu</option>
+      <option value="/server_kullanim5.txt">Motor Kalibrasyonu (Demo)</option>
+    </select>
+
+    <div style="margin-top: 20px;">
+      <textarea id="klavuzIcerik" rows="20"
+        style="width: 90%; max-width: 800px; padding: 10px; font-size: 16px; resize: none; overflow-y: auto;" readonly>
+  Kılavuz içeriği burada görünecek...
+      </textarea>
+    </div>
+  </div>
+
+
+  <div class="info-box">
+    <p>Henüz demo aşamasındadır. Planlanan tüm özellikler eklenmemiştir.</p>
+    <p>
+      Dijital ekranla senkron şekilde kullanınız. Bazı ayarlar tuş takımından
+      yapılmaktadır.
+    </p>
+    <p>
+      geliştirici tel : <a href="tel:+905442209871" style="color: #2e0206; text-decoration: none;">0544 220 98 71</a>
+    </p>
+    <p>
+      geliştirici github :
+      <a href="https://github.com/EmirhanOzcelik" target="_blank">
+        EmirhanOzcelik
+      </a>
+    </p>
+    <p>
+      <a href="https://www.instagram.com/eminegitim25/" style="color: #3ffa15; text-decoration: none;">Emin eğitim
+        instagram</a>
+    </p>
+    <p>
+      <a href="https://www.facebook.com/eminegitim25/?locale=tr_TR" target="_blank"
+        style="color: #3ffa15; text-decoration: none;">Emin eğitim facebook</a>
+    </p>
+  </div>
+
+  <footer>
+    <p>© 2025 Mucithane</p>
+  </footer>
+
+  <script>
+    ssid_tarama_sayac = 2;
+    sn_syc = 0;
+    window.onload = function () {
+      zamanGonder();
+      randomAyetGoster();
+      randomIsimGoster();
+      randomHadisGoster();
+      randomsiyerGoster();
+
+      setInterval(() => {
+        kutu_guncelle();
+      }, 1000);
+
+      setInterval(() => {
+        randomAyetGoster();
+        randomIsimGoster();
+        randomHadisGoster();
+        randomsiyerGoster();
+      }, 20000);
+
+    };
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    function klavuzYukle() {
+      var secim = document.getElementById("klavuzSec").value;
+      var kutu = document.getElementById("klavuzIcerik");
+
+      if (secim === "") {
+        kutu.value = "Listeden seçim yapınız";
+        return;
+      }
+
+      fetch(secim)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Klavuz yüklenemedi.');
+          }
+          return response.text();
+        })
+        .then(data => {
+          kutu.value = data;
+          // Otomatik olarak textareanın yüksekliğini içeriğe göre ayarla
+          kutu.style.height = 'auto'; // İlk başta auto
+          kutu.style.height = (kutu.scrollHeight + 10) + 'px'; // İçeriğe göre ayarla
+        })
+        .catch(error => {
+          kutu.value = "Klavuz yüklenirken hata oluştu.";
+          console.error(error);
+        });
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    function tarama_buton() {
+      ssid_tarama_sayac = 0;
+      ssidList.innerHTML = "<option>Tarama başlatılıyor</option>";
+    }
+    function taraSSID() {
+      const ssidList = document.getElementById('ssidList');
+      ssidList.innerHTML = "<option>Yükleniyor...</option>";
+      const timeout = setTimeout(() => {
+        ssidList.innerHTML = "<option>Ağ bulunamadı</option>";
+      }, 5000);
+
+      fetch('/tara-ssid')
+        .then(response => response.json())
+        .then(data => {
+          clearTimeout(timeout);
+          ssidList.innerHTML = "";
+
+          if (data.length === 0) {
+            ssidList.innerHTML = "<option>Ağ bulunamadı</option>";
+          } else {
+            data.forEach(ssid => {
+              const option = document.createElement('option');
+              option.value = ssid;
+              option.textContent = ssid;
+              ssidList.appendChild(option);
+            });
+          }
+        })
+        .catch(error => {
+          clearTimeout(timeout);
+          console.error('Hata:', error);
+          ssidList.innerHTML = "<option>Tekrar deneyin</option>";
+        });
+    }
+    function oto_ssid_tara() {
+      const ssidList = document.getElementById('ssidList');
+      const toplamSSID = ssidList.options.length;
+      if (ssid_tarama_sayac < 2 && toplamSSID == 1) {
+        taraSSID();
+        ssid_tarama_sayac++;
+      }
+    }
+    function baglanWifi() {
+      const ssid = document.getElementById('ssidList').value;
+      const password = document.getElementById('wifiPassword').value;
+      const button = document.getElementById('baglanButton');
+
+      if (password.length > 6) {  // Şifre uzunluğu kontrolü
+        // Animasyonu başlat
+        button.innerHTML = "🔄 Bağlanıyor...";  // Butonun metnini değiştir
+        button.disabled = true;  // Butonu devre dışı bırak
+
+        fetch('/baglan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `ssid=${encodeURIComponent(ssid)}&password=${encodeURIComponent(password)}`
+        })
+          .then(response => response.text())
+          .then(data => {
+            alert(data);
+            document.getElementById('wifiPassword').value = "";  // Şifreyi sıfırlama
+            button.innerHTML = "Bağlan";  // Buton metnini geri al
+            button.disabled = false;  // Butonu tekrar etkinleştir
+          })
+          .catch(error => {
+            console.error('Hata:', error);
+            button.innerHTML = "Bağlan";  // Hata durumunda da metni geri al
+            button.disabled = false;  // Butonu tekrar etkinleştir
+          });
+      } else {
+        alert('Şifre 6 karakterden uzun olmalıdır!');
+      }
+    }
+    // Şifre görünür/gizli yapma fonksiyonu
+    function togglePassword() {
+      const passwordField = document.getElementById('wifiPassword');
+      const toggleButton = document.getElementById('togglePassword');
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";  // Şifreyi görünür yap
+        toggleButton.textContent = "🙈"; // Göz simgesini değiştir
+      } else {
+        passwordField.type = "password";  // Şifreyi gizle
+        toggleButton.textContent = "👁️"; // Göz simgesini eski haline getir
+      }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function zamanGonder() {
+      const t = new Date();
+      const veri = `sn=${t.getSeconds()}&dk=${t.getMinutes()}&saat=${t.getHours()}&gun=${t.getDate()}&ay=${t.getMonth() + 1
+        }&yil=${t.getFullYear()}&haftagun=${t.getDay()}`;
+      fetchPost("/zaman", veri);
+    }
+
+    function sureGonder() {
+      const toplam = document.getElementById("sureSecimi").value;
+      const saat = Math.floor(toplam / 60);
+      const dakika = toplam % 60;
+      const veri = `saat=${saat}&dk=${dakika}`;
+      console.log("Gonderilen sure:", veri);
+      fetchPost("/kapi-secim", veri);
+    }
+
+    function gosterSecim(deger) {
+      const saat = Math.floor(deger / 60);
+      const dakika = deger % 60;
+      document.getElementById("saatDegeri").textContent = saat;
+      document.getElementById("dakikaDegeri").textContent =
+        (dakika < 10 ? "0" : "") + dakika;
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    function fetchPost(url, data) {
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: data,
+      })
+        .then((res) => res.text())
+        .then((res) => alert(res))
+        .catch((err) => alert("Hata: " + err));
+    }
+    function fetchGet(url) {
+      fetch(url)
+        .then((res) => res.text())
+        .then((res) => alert(res))
+        .catch((err) => alert("Hata: " + err));
+    }
+    function kutu_guncelle(){
+      sn_syc++;
+      if (sn_syc == 6)
+        return;
+      else if (sn_syc % 2 == 0) {
+        mesajGetir1("mesajKutusu1");
+        oto_ssid_tara();
+      }
+      else if (sn_syc % 3 == 0) {
+        mesajGetir2("mesajKutusu2");
+      }
+      else if (sn_syc % 5 == 0) {
+        mesajGetir3("mesajKutusu3");
+        sn_syc = 0;
+      }
+      else if (sn_syc > 6) {
+        sn_syc = 0;
+      }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    function mesajGetir1(kutuid) {
+      fetch("/mesaj1")
+        .then((res) => {
+          if (!res.ok) {
+            return Promise.reject('Sunucudan veri alınırken bir hata oluştu');
+          }
+          return res.text(); // Gelen veriyi döndür
+        })
+        .then((text) => {
+          if (text) {
+            document.getElementById(kutuid).value = text;
+          } else {
+            document.getElementById(kutuid).value = "Veri yok";
+          }
+        })
+        .catch((err) => {
+          document.getElementById(kutuid).value = "Bağlantı yok";
+        });
+    }
+    function mesajGetir2(kutuid) {
+      fetch("/mesaj2")
+        .then((res) => {
+          if (!res.ok) {
+            return Promise.reject('Sunucudan veri alınırken bir hata oluştu');
+          }
+          return res.text(); // Gelen veriyi döndür
+        })
+        .then((text) => {
+          if (text) {
+            document.getElementById(kutuid).value = text;
+          } else {
+            document.getElementById(kutuid).value = "Veri yok";
+          }
+        })
+        .catch((err) => {
+          document.getElementById(kutuid).value = "Bağlantı yok";
+        });
+    }
+    function mesajGetir3(kutuid) {
+      fetch("/mesaj3")
+        .then((res) => {
+          if (!res.ok) {
+            return Promise.reject('Sunucudan veri alınırken bir hata oluştu');
+          }
+          return res.text(); // Gelen veriyi döndür
+        })
+        .then((text) => {
+          if (text) {
+            document.getElementById(kutuid).value = text;
+          } else {
+            document.getElementById(kutuid).value = "Veri yok";
+          }
+        })
+        .catch((err) => {
+          document.getElementById(kutuid).value = "Bağlantı yok";
+        });
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const isimler = [
+      { isim: "Allah", anlam: "Tüm varlıkların gerçek sahibi, tek ilah" },
+      { isim: "Er-Rahman", anlam: "Dünyada herkese sonsuz merhamet eden" },
+      { isim: "Er-Rahim", anlam: "Ahirette müminlere merhamet eden" },
+      { isim: "El-Melik", anlam: "Tüm evrenin tek hükümdarı" },
+      { isim: "El-Kuddüs", anlam: "Her türlü eksiklikten tamamen uzak olan" },
+      { isim: "Es-Selam", anlam: "Barış ve huzur kaynağı" },
+      { isim: "El-Mümin", anlam: "Güven veren ve koruyan" },
+      { isim: "El-Müheymin", anlam: "Her şeyi gözeten ve koruyan" },
+      { isim: "El-Aziz", anlam: "Karşı gelinemez büyük güç sahibi" },
+      { isim: "El-Cebbar", anlam: "İradesi kesin, güçlü otorite sahibi" },
+      { isim: "El-Mütekebbir", anlam: "Gerçek büyüklük ve yücelik sahibi" },
+      { isim: "El-Halik", anlam: "Her şeyi yoktan yaratan" },
+      { isim: "El-Bari", anlam: "Yarattıklarını kusursuzca düzenleyen" },
+      { isim: "El-Musavvir", anlam: "Yarattıklarına şekil ve özellik veren" },
+      { isim: "El-Gaffar", anlam: "Günahları çokça bağışlayan" },
+      { isim: "El-Kahhar", anlam: "Her şeye üstün gelen, her şeyi kontrol eden" },
+      { isim: "El-Vehhab", anlam: "Karşılıksız veren, ihsan eden" },
+      { isim: "Er-Rezzak", anlam: "Her canlıya rızık veren" },
+      { isim: "El-Fettah", anlam: "Zorlukları açan, kolaylaştıran" },
+      { isim: "El-Alim", anlam: "Her şeyi en ince detayına kadar bilen" },
+      { isim: "El-Kabid", anlam: "Dilediğinde rızkı daraltan" },
+      { isim: "El-Basit", anlam: "Dilediğinde bolluk veren" },
+      { isim: "El-Hafid", anlam: "İstediğini alçaltan" },
+      { isim: "Er-Rafi", anlam: "İstediğini yücelten" },
+      { isim: "El-Muizz", anlam: "İstediğine şeref ve güç veren" },
+      { isim: "El-Muzil", anlam: "İstediğini küçülten, alçaltan" },
+      { isim: "Es-Semi", anlam: "Her sesi, her duayı işiten" },
+      { isim: "El-Basir", anlam: "Her şeyi gören" },
+      { isim: "El-Hakem", anlam: "En doğru şekilde hükmeden" },
+      { isim: "El-Adl", anlam: "Tam adaletle iş yapan" },
+      { isim: "El-Latif", anlam: "İnce lütuflarda bulunan, nazik olan" },
+      { isim: "El-Habir", anlam: "Her şeyden haberdar olan" },
+      { isim: "El-Halim", anlam: "Acelemeyen, sabırlı olan" },
+      { isim: "El-Azim", anlam: "Büyüklükte eşi olmayan" },
+      { isim: "El-Gafur", anlam: "Çokça affeden" },
+      { isim: "Eş-Şekur", anlam: "Az iyiliğe çok mükafat veren" },
+      { isim: "El-Aliyy", anlam: "Çok yüce olan" },
+      { isim: "El-Kebir", anlam: "Her şeyden büyük olan" },
+      { isim: "El-Hafiz", anlam: "Her şeyi koruyan" },
+      { isim: "El-Mukit", anlam: "Tüm varlıkların ihtiyaçlarını sağlayan" },
+      { isim: "El-Hasib", anlam: "Herkesin hesabını gören" },
+      { isim: "El-Celil", anlam: "İzzet ve büyüklük sahibi" },
+      { isim: "El-Kerim", anlam: "Çok cömert olan" },
+      { isim: "Er-Rakib", anlam: "Her an her şeyi gözetleyen" },
+      { isim: "El-Mucib", anlam: "Dualara karşılık veren" },
+      { isim: "El-Vasi", anlam: "İlimi, rahmeti her şeyi kaplayan" },
+      { isim: "El-Hakim", anlam: "Her işi yerli yerinde yapan" },
+      { isim: "El-Vedud", anlam: "Seven ve sevilen" },
+      { isim: "El-Mecid", anlam: "Şanı ve şerefi büyük olan" },
+      { isim: "El-Bais", anlam: "Ölüleri dirilten" },
+      { isim: "Eş-Şehid", anlam: "Her şeye şahid olan" },
+      { isim: "El-Hakk", anlam: "Varlığı ve hükmü kesin olan" },
+      { isim: "El-Vekil", anlam: "İşleri en iyi şekilde yöneten" },
+      { isim: "El-Kaviyy", anlam: "Sınırsız güç sahibi" },
+      { isim: "El-Metin", anlam: "Sarsılmaz kuvvet sahibi" },
+      { isim: "El-Veliyy", anlam: "Dost ve destek olan" },
+      { isim: "El-Hamid", anlam: "Her türlü övgüye layık olan" },
+      { isim: "El-Muhsi", anlam: "Her şeyi tek tek bilen ve sayan" },
+      { isim: "El-Mubdi", anlam: "Yoktan var eden" },
+      { isim: "El-Muid", anlam: "Yarattıklarını yok edip sonra dirilten" },
+      { isim: "El-Muhyi", anlam: "Hayat veren" },
+      { isim: "El-Mumit", anlam: "Öldüren" },
+      { isim: "El-Hayy", anlam: "Ölümsüz ve daima diri olan" },
+      { isim: "El-Kayyum", anlam: "Varlıkları ayakta tutan" },
+      { isim: "El-Vacid", anlam: "İstediğini bulan" },
+      { isim: "El-Macid", anlam: "Şanı yüksek olan" },
+      { isim: "El-Vahid", anlam: "Tek olan" },
+      { isim: "Es-Samed", anlam: "Herkesin muhtaç olduğu" },
+      { isim: "El-Kadir", anlam: "İstediğini yapmaya gücü yeten" },
+      { isim: "El-Muktedir", anlam: "Her şeyi dilediği gibi yapan" },
+      { isim: "El-Mukaddim", anlam: "İstediğini öne çıkaran" },
+      { isim: "El-Muahhir", anlam: "İstediğini geri bırakan" },
+      { isim: "El-Evvel", anlam: "İlk olan, başlangıcı olmayan" },
+      { isim: "El-Ahir", anlam: "Son olan, bitişi olmayan" },
+      { isim: "Ez-Zahir", anlam: "Varlığı açık olan" },
+      { isim: "El-Batin", anlam: "Görünmeyen, gizli olan" },
+      { isim: "El-Vali", anlam: "Kainatı yöneten" },
+      { isim: "El-Müteali", anlam: "Yüceler yücesi" },
+      { isim: "El-Berr", anlam: "İyilik ve güzellik sahibi" },
+      { isim: "Et-Tevvab", anlam: "Tevbeleri kabul eden" },
+      { isim: "El-Müntakim", anlam: "Zalimlerden adaletle intikam alan" },
+      { isim: "El-Afüvv", anlam: "Günahları tamamen silen" },
+      { isim: "Er-Rauf", anlam: "Çok şefkatli ve merhametli" },
+      { isim: "Malik-ül Mülk", anlam: "Mülkün ve her şeyin sahibi" },
+      { isim: "Zü’l-Celali ve’l-İkram", anlam: "Celal ve ikram sahibi" },
+      { isim: "El-Muksit", anlam: "Hakkı gözeterek adaletle davranan" },
+      { isim: "El-Cami", anlam: "İstediğini bir araya toplayan" },
+      { isim: "El-Ganiyy", anlam: "Hiçbir şeye muhtaç olmayan" },
+      { isim: "El-Mugni", anlam: "İstediğini zengin eden" },
+      { isim: "El-Mani", anlam: "Dilediğine engel olan" },
+      { isim: "Ed-Darr", anlam: "Zarar veren" },
+      { isim: "En-Nafi", anlam: "Fayda sağlayan" },
+      { isim: "En-Nur", anlam: "Kainatı aydınlatan" },
+      { isim: "El-Hadi", anlam: "Doğru yolu gösteren" },
+      { isim: "El-Bedi", anlam: "Eşi benzeri olmayan şekilde yaratan" },
+      { isim: "El-Baki", anlam: "Sonsuz, hiç yok olmayan" },
+      { isim: "El-Varis", anlam: "Her şey yok olduktan sonra kalan" },
+      { isim: "Er-Reşid", anlam: "Doğru yolu öğreten ve gösteren" },
+      { isim: "Es-Sabur", anlam: "Çok sabreden" }
+    ];
+    const kirkHadis = [
+      {
+        baslik: "İman; Allah’a, meleklerine, kitaplarına, peygamberlerine, âhiret gününe, iyisi ve kötüsüyle kadere inanmandır.",
+        anlam: "(Müslim, Îmân, 1)"
+      },
+      {
+        baslik: "Şu üç özellik kimde bulunursa o kişi imanın tadına erer: Allah ve Resûlü’nü herkesten çok sevmek, sevdiği kişiyi sadece Allah için sevmek, imandan sonra küfre dönmekten, ateşe atılmaktan çekindiği gibi çekinmek.",
+        anlam: "(Buhârî, Îmân, 9)"
+      },
+      {
+        baslik: "İslâm, Allah’tan başka ilâh olmadığına, Muhammed’in Allah’ın Resûlü olduğuna şehâdet etmen; namazı dosdoğru kılman, zekâtı vermen, Ramazan orucunu tutman ve gücün yeterse Kâbe’yi haccetmendir.",
+        anlam: "(Müslim, Îmân, 1)"
+      },
+      {
+        baslik: "Sahabeden biri: “Ey Allah’ın Resûlü, bana İslâm ile ilgili, hakkında başka kimseye soru sormama gerek kalmayacak bir şey söyle.” dedi. Resûlullah (sallallâhu aleyhi ve sellem) “Allah’a iman ettim de, sonra dosdoğru ol.” buyurdu.",
+        anlam: "(İbn Hanbel, III, 413)"
+      },
+      {
+        baslik: "Mü’min bal arısına benzer; güzel şeyler yer, güzel şeyler üretir, (güzel yerlere) konar, (konduğu yeri de) kırmaz ve bozmaz.",
+        anlam: "(İbn Hanbel, II, 199)"
+      },
+      {
+        baslik: "Kim kardeşine haksızlık etmişse, onunla helâlleşsin…",
+        anlam: "(Buhârî, Rikâk, 48)"
+      },
+      {
+        baslik: "Resûlullah (sallallâhu aleyhi ve sellem), “Size en büyük günahın ne olduğunu söyleyeyim mi?” diye sorunca, ashâb, “Evet, buyur ey Allah’ın Resûlü!” dediler. Bunun üzerine Resûlullah, “Allah’a ortak koşmak ve anaya babaya saygısızlık etmektir…” buyurdu.",
+        anlam: "(Buhârî, Edeb, 6)"
+      },
+      {
+        baslik: "Doğruluktan ayrılmayın. Çünkü doğruluk iyiliğe, iyilik de cennete götürür. Kişi devamlı doğru söyler ve doğruluktan ayrılmazsa Allah katında ‘doğru/sıddîk’ olarak tescillenir. Yalandan sakının! Çünkü yalan kötülüğe, kötülük de cehenneme götürür. Kişi devamlı yalan söyler, yalan peşinde koşarsa Allah katında ‘yalancı’ olarak tescillenir.",
+        anlam: "(Müslim, Birr, 105)"
+      },
+      {
+        baslik: "Bir kimse camiye gitme niyetiyle evinden çıktığında, attığı bir adımla kendisine bir sevap yazılır, diğer adımıyla bir günahı silinir.",
+        anlam: "(Nesâî, Mesâcid, 14)"
+      },
+      {
+        baslik: "Resûlullah’ın (sallallâhu aleyhi ve sellem) naklettiği kudsî bir hadis-i şerifte Yüce Allah şöyle buyurmuştur: “İki sevgilisi (olan gözlerini almak sureti) ile kulumu sınadığımda sabrederse, bu ikisine karşılık ona cenneti veririm.”",
+        anlam: "(Buhârî, Merdâ, 7)"
+      },
+      {
+        baslik: "Batan bir diken bile olsa Müslüman’ın başına gelen her bir musibeti, Allah onun günahlarına kefaret kılar.",
+        anlam: "(Buhârî, Merdâ, 1)"
+      },
+      {
+        baslik: "Kim hiçbir ortağı olmayan, tek olan Allah’a ihlâsla ibadet ederek, namazı dosdoğru kılarak, zekâtı vererek dünyadan ayrılırsa, Allah kendisinden razı olduğu halde vefat etmiş olur.",
+        anlam: "(İbn Mâce, Sünnet, 9)"
+      },
+      {
+        baslik: "Müminler, birbirlerini sevmede, birbirlerine merhamet ve şefkat göstermede, tıpkı bir organı rahatsızlandığında diğer organları da uykusuzluk ve yüksek ateşle bu acıyı paylaşan bir bedene benzer.",
+        anlam: "(Müslim, Birr, 66)"
+      },
+      {
+        baslik: "İnsanlarla bir arada yaşayan ve onların eziyetlerine sabreden mümin, insanlarla bir arada yaşamayan ve onların eziyetlerine sabretmeyen müminden daha büyük ecre nail olur.",
+        anlam: "(İbn Mâce, Fiten 23)"
+      },
+      {
+        baslik: "Şüphesiz Yüce Rabbiniz hayâ sahibi ve cömerttir. Kulu (dua etmek için) O’na ellerini kaldırdığı zaman, o elleri boş çevirmekten hayâ eder.",
+        anlam: "(Ebû Dâvûd, Vitr, 23)"
+      },
+      {
+        baslik: "Kolaylaştırın,zorlaştırmayın! Müjdeleyin, nefret ettirmeyin!",
+        anlam: "(Buhârî, Meğâzî, 61.)"
+      },
+      {
+        baslik: "Kalbinde Kur’ân’dan bir miktar bulunmayan kimse, terk edilmiş harabe bir ev gibidir.",
+        anlam: "(Tirmizî, Fedâilü’l-Kur’ân 18)"
+      },
+      {
+        baslik: "Allah’ın hoşnutluğu anne babanın hoşnutluğuna bağlıdır. Allah’ın öfkesi ise, anne babanın öfkesine bağlıdır.",
+        anlam: "(Tirmizî, Birr, 3)"
+      },
+      {
+        baslik: "Kim rızkının bollaştırılmasını yahut ecelinin geciktirilmesini arzu ederse, akraba ile irtibatını sürdürsün!",
+        anlam: "(Müslim, Birr, 20)"
+      },
+      {
+        baslik: "Bir genç, ihtiyar bir kimseye yaşından dolayı hürmet ederse, Allah da ona yaşlılığında kendisine hürmet edecek birisini hazırlar.",
+        anlam: "(Tirmizî, Birr, 75)"
+      },
+      {
+        baslik: "Müslümanlar(ın evleri) arasında en hayırlı ev, içinde kendisine iyi davranılan bir yetimin bulunduğu evdir. Müslümanlar arasında en kötü ev ise, içinde kendisine kötü davranılan bir yetimin bulunduğu evdir.",
+        anlam: "(İbn Mâce, Edeb, 6)"
+      },
+      {
+        baslik: "Kendisi cehennem ateşine ve cehennem ateşi de kendisine haram olan kişiyi size bildireyim mi? Cana yakın, yumuşak huylu, kolaylaştırıcı kimse.",
+        anlam: "(Tirmizî, Sıfatü’l-kıyâme, 45)"
+      },
+      {
+        baslik: "İman etmedikçe cennete giremezsiniz, birbirinizi sevmedikçe de (gerçek anlamda) iman etmiş olmazsınız. Size, yaptığınız takdirde birbirinizi seveceğiniz bir iş göstereyim mi? Aranızda selâmı yayın.",
+        anlam: "(Müslim, Îmân, 93)"
+      },
+      {
+        baslik: "Kardeşinle (düşmanlığa varan) tartışmaya girme, onunla (kırıcı şekilde) şakalaşma ve ona yerine getiremeyeceğin bir söz verme.",
+        anlam: "(Tirmizî, Birr, 58)"
+      }
+    ];
+    const ayetler = [
+      { baslik: "Yoksa siz kitabın bir kısmına inanıp bir kısmını inkâr mı ediyorsunuz?", ayet: "Bakara: 85" },
+      { baslik: "Andolsun, biz onlara bir Kitap getirdik; iman edecek bir topluluğa bir hidayet ve bir rahmet olması için bir ilim üzere onu çeşitli biçimlerde açıkladık.", ayet: "A'RAF: 52" },
+      { baslik: "Ahiret de dünya da Allah'ındır.", ayet: "Necm: 25" },
+      { baslik: "Mü'minler ancak o kimselerdir ki; Allah anıldığı zaman kalpleri ürperir. O'nun âyetleri kendilerine okunduğu zaman (bu) onların imanlarını artırır. Onlar sadece Rablerine tevekkül ederler.", ayet: "ENFÂL: 2" },
+      { baslik: "Kur'an'ı ağır ağır, tane tane oku.", ayet: "MÜZZEMMİL: 4" },
+      { baslik: "Kur'an'ı sana farz kılan Allah, şüphesiz seni dönülecek yere döndürecektir. De ki: Rabbim hidayetle geleni ve apaçık bir sapıklık içinde olanı daha iyi bilir.", ayet: "KASAS: 85" },
+      { baslik: "O(hakkıyla inananlar), namazlarına devam eden kimselerdir.", ayet: "Mearic: 23" },
+      { baslik: "Şüphesiz bu Kur'an sana, hüküm ve hikmet sahibi, hakkıyla bilen Allah tarafından verilmektedir.", ayet: "NEML: 6" },
+      { baslik: "De ki: Rabbim! Bağışla, merhamet et. Çünkü sen merhamet edenlerin en iyisisin!", ayet: "MÜ'MİNÛN: 118" },
+      { baslik: "Rabbim! Beni namaza devam eden bir kimse eyle. Soyumdan da böyle kimseler yarat. Rabbimiz! Duamı kabul eyle. Rabbimiz! Hesap görülecek günde, beni, ana babamı ve inananları bağışla.", ayet: "İBRÂHİM: 40-41" },
+      { baslik: "Allah, iman edip salih ameller işleyenlerin dualarına karşılık verir; lütfundan onlara fazlasını da verir. Kâfirler için ise çetin bir azap vardır.", ayet: "ŞÛRÂ: 26" },
+      { baslik: "Kim bir iyilik yaparsa, ona on katı vardır. Kim de bir kötülük yaparsa, o da sadece o kötülüğün misliyle (aynısıyla) cezalandırılır ve onlara zulmedilmez.", ayet: "EN'ÂM: 160" },
+      { baslik: "Eğer yüz çevirirlerse de ki: Bana Allah yeter. O'ndan başka hiçbir ilâh yoktur. Ben ancak O'na tevekkül ettim. O, yüce Arş'ın sahibidir.", ayet: "TEVBE: 129" },
+      { baslik: "Mallarında (yardım) isteyen ve (iffetinden dolayı isteyemeyip) mahrum olanlar için bir hak vardı.", ayet: "Zariyat: 19" },
+      { baslik: "De ki: Ne dersiniz? Eğer o (Kur'an) Allah katından olup da siz de onu inkâr etmişseniz, o zaman derin bir ayrılık içinde bulunan kimseden daha sapık kim olabilir?", ayet: "FUSSİLET: 52" },
+      { baslik: "De ki: İster Allah diye yakarın, ister Rahman diye yakarın. Hangisiyle yakarırsanız yakarın, en güzel isimler/Esmâül Hüsna O'nundur. Namazında sesini yükseltme, kısma da. İkisi ortası bir yol tut.", ayet: "İSRÂ: 110" },
+      { baslik: "Onlar(iman edenler) ki, faydasız işlerden ve boş sözlerden yüz çevirirler.", ayet: "Mu'minun: 3" },
+      { baslik: "Şüphesiz, bu Kur'an, en doğru yola iletir ve salih amellerde bulunan mü'minlere, onlar için gerçekten büyük bir mükafat olduğunu müjdeler.", ayet: "İSRÂ: 9" },
+      { baslik: "Ey iman edenler! Kazandıklarınızın iyilerinden ve yerden sizin için çıkardıklarımızdan Allah yolunda harcayın. Kendinizin göz yummadan alıcısı olmayacağınız bayağı şeyleri vermeye kalkışmayın ve bilin ki Allah, her bakımdan zengindir, övülmeye lâyıktır.", ayet: "BAKARA: 267" },
+      { baslik: "Onlar(iman edenler), emanetlerine ve ahitlerine riayet ederler.", ayet: "Mu'minun: 8" },
+      { baslik: "İnkâr edip âyetlerimizi yalanlayanlar var ya; işte onlar cehennemliklerdir.", ayet: "MÂİDE: 10" },
+      { baslik: "(Allahım!) Yalnız sana ibadet ederiz ve yalnız senden yardım dileriz. Bizi doğru yola, kendilerine nimet verdiklerinin yoluna ilet; gazaba uğrayanlarınkine ve sapıklarınkine değil.", ayet: "FÂTİHA: 5-7" },
+      { baslik: "Sen af yolunu tut, iyiliği emret, cahillerden yüz çevir.", ayet: "A'RAF: 199" },
+      { baslik: "Yoksa siz kitabın bir kısmına inanıp bir kısmını inkar mı ediyorsunuz?", ayet: "Bakara: 85" },
+      { baslik: "(Ey Muhammed!) O hâlde, yüksek azim sahibi peygamberlerin sabretmesi gibi sabret. Onlar(inkar edenler) için acele etme. Onlar tehdit edildikleri azabı gördükleri gün, sanki dünyada gündüzün bir anından başka kalmadıklarını sanırlar. Bu bir duyurudur. Ancak yoldan çıkmış olan topluluk helâk edilir.", ayet: "AHKAF: 35" },
+      { baslik: "Gerçekten biz Eyyûb'u sabreden bir kimse olarak bulduk. O ne güzel bir kuldu! O, Allah'a çok yönelen bir kimse idi.", ayet: "SÂD: 44" },
+      { baslik: "Şüphesiz Allah, adaleti, iyilik yapmayı, yakınlara yardım etmeyi emreder; hayâsızlığı, fenalık ve azgınlığı da yasaklar. O, düşünüp tutasınız diye size öğüt verir.", ayet: "NAHL: 90" },
+      { baslik: "Onlar(hakkıyla inananlar) namazlarında huşu içinde olanlardır;", ayet: "Mu'minun: 2" },
+      { baslik: "Onlar(inanan kimseler), şahitliklerini dosdoğru yapan kimselerdir.", ayet: "Mearic: 33" },
+      { baslik: "O hanginizin daha güzel amel yapacağını sınamak için ölümü ve hayatı yaratandır.", ayet: "Mülk: 2" },
+      { baslik: "İnsana bir zarar dokunduğunda bize yalvarır. Sonra ona tarafımızdan bir nimet verdiğimizde 'Bu bana ancak bilgim sayesinde verilmiştir' der. Hayır o bir imtihandır. Fakat onların çoğu bilmezler.", ayet: "Zümer: 49" },
+      { baslik: "En güzel isimler Allah'ındır. O'na o güzel isimleriyle dua edin ve O'nun isimleri hakkında gerçeği çarpıtanları bırakın. Onlar yaptıklarının cezasına çarptırılacaklardır.", ayet: "A'RAF: 180" },
+      { baslik: "Ayetlerimizi yalanlayanları, hiç bilemeyecekleri bir yerden ağır ağır çöküşe götüreceğiz.", ayet: "A'RAF: 182" },
+      { baslik: "Andolsun, biz elçilerimizi açık mucizelerle gönderdik ve beraberlerinde kitabı ve mizanı (ölçüyü) indirdik ki, insanlar adaleti yerine getirsinler.", ayet: "HADÎD: 25" },
+      { baslik: "De ki: Rabbim adaleti emretti. Her secde yerinde yüzlerinizi (O'na) doğrultun. Dini Allah'a has kılarak O'na ibadet edin. Sizi başlangıçta yarattığı gibi (yine O'na) döneceksiniz.", ayet: "A'RAF: 29" },
+      { baslik: "Eğer yasaklandığınız büyük günahlardan kaçınırsanız sizin küçük günahlarınızı örteriz ve sizi şerefli bir yere sokarız.", ayet: "Nisa: 31" },
+      { baslik: "Ey iman edenler! Mallarınızı aranızda batıl yollarla yemeyin. Ancak karşılıklı rıza ile yapılan ticaretle olursa başka. Kendinizi helâk etmeyin. Şüphesiz Allah, size karşı çok merhametlidir.", ayet: "NİSA: 29" },
+      { baslik: "Başınıza gelen herhangi bir musibet kendi ellerinizle işledikleriniz yüzündendir. (Bununla beraber) Allah çoğunu affeder.", ayet: "Şura: 30" },
+      { baslik: "İnkâr edenler, kendilerine kıyamet ansızın gelinceye, yahut da onlara kısır bir günün azabı gelip çatıncaya dek o Kur'an'dan kuşku içinde olacaklardır.", ayet: "HAC: 55" },
+      { baslik: "Onlar(iman edenler), sabreden ve yalnız Rablerine tevekkül eden kimselerdir.", ayet: "Ankebut: 59" },
+      { baslik: "Sevdiğiniz şeylerden Allah yolunda harcamadıkça iyiliğe asla erişemezsiniz. Her ne harcarsanız Allah onu bilir.", ayet: "ÂLİ İMRÂN: 92" }
+    ];
+    const siyerKronolojikBasliklari = [
+      {
+        baslik: "Peygamberimizin Doğumu (570 M)",
+        anlam: "Hz. Muhammed (s.a.v.) Mekke'de doğmuştur. Annesi Amine, babası Abdullah vefat etmiş ve Hz. Muhammed, dedesi Abdulmuttalip'in bakımında büyümüştür."
+      },
+      {
+        baslik: "Peygamber Efendimizin Gençliği (570 - 25 yaş)",
+        anlam: "Hz. Muhammed, gençliğinde 'El-Emin' olarak tanınmış, doğruluğu ve güvenilirliği ile bilinir. 25 yaşında, Hz. Hatice ile evlenmiştir."
+      },
+      {
+        baslik: "Peygamberliğin İlanı (610 M)",
+        anlam: "Hz. Muhammed (s.a.v.), 40 yaşında Allah'tan ilk vahyi alarak peygamberliğini ilan etmeye başlamıştır. İlk vahiy, Hira mağarasında Cebrail (a.s.) tarafından gelmiştir."
+      },
+      {
+        baslik: "İlk Müslümanlar (610 - 613 M)",
+        anlam: "İlk inananlar, Hz. Hatice, Hz. Ali, Hz. Ebubekir ve diğer sahabelerdir. Müslümanlık gizli olarak yayılmaya başlamıştır."
+      },
+      {
+        baslik: "Mekke'deki Zulüm ve Boykot (613 - 620 M)",
+        anlam: "Peygamberimizin tebliği, Kureyşlilerin zulmüne ve boykotuna neden olmuştur. Müslümanlar, Mekke'de büyük baskılara uğramıştır."
+      },
+      {
+        baslik: "Hicret (622 M)",
+        anlam: "Hz. Muhammed (s.a.v.), Mekke'den Medine'ye hicret ederek burada İslam devletini kurmuştur. Hicret, İslam takviminin başlangıcını oluşturur."
+      },
+      {
+        baslik: "Bedir Savaşı (624 M)",
+        anlam: "Müslümanlar, Bedir'de Mekkelilere karşı büyük bir zafer kazanmıştır. Bu zafer, İslam'ın ilk büyük askeri zaferidir."
+      },
+      {
+        baslik: "Uhud Savaşı (625 M)",
+        anlam: "Uhud Savaşı'nda, başlangıçta galip olan Müslümanlar, okçuların yerinden ayrılmaları sonucu mağlup olmuşlardır. Hz. Muhammed (s.a.v.) yaralanmış ve bazı sahabeler şehit olmuştur."
+      },
+      {
+        baslik: "Hendek Savaşı (627 M)",
+        anlam: "Mekkeliler, Medine'yi kuşatmak için büyük bir ordu göndermiştir. Müslümanlar, şehri hendekle savunmuş ve savaşı kazanmışlardır."
+      },
+      {
+        baslik: "Hudeybiye Antlaşması (628 M)",
+        anlam: "Müslümanlar, Mekkelilerle Hudeybiye Antlaşması'nı yaparak barış yapmış, bu antlaşma sonrasında İslam daha hızlı yayılmaya başlamıştır."
+      },
+      {
+        baslik: "Mekke'nin Fethi (630 M)",
+        anlam: "Müslümanlar, Mekke'yi fethetmiş ve şehir teslim olmuştur. Kabe temizlenip İslam'a kazandırılmıştır."
+      },
+      {
+        baslik: "Veda Haccı (632 M)",
+        anlam: "Hz. Muhammed (s.a.v.) son haccını yapmış ve Veda Hutbesi'ni vererek İslam'ı tamamlamıştır. Bu, onun son hac ziyareti olmuştur."
+      },
+      {
+        baslik: "Peygamber Efendimizin Vefatı (632 M)",
+        anlam: "Hz. Muhammed (s.a.v.) 63 yaşında vefat etmiştir. Müslümanlar, onu kaybetmenin acısını yaşamış ve İslam devleti halifelik ile devam etmiştir."
+      }
+    ];
+
+    function randomIsimGoster() {
+      const randomIndex = Math.floor(Math.random() * isimler.length);
+      const selectedIsim = isimler[randomIndex];
+      document.getElementById("nameDisplay").textContent = selectedIsim.isim;
+      document.getElementById("meaningDisplay").textContent = selectedIsim.anlam;
+    }
+    function randomAyetGoster() {
+      const randomIndex = Math.floor(Math.random() * ayetler.length);
+      const selectedIsim = ayetler[randomIndex];
+      document.getElementById("nameDisplay2").textContent = selectedIsim.baslik;
+      document.getElementById("meaningDisplay2").textContent = selectedIsim.ayet;
+    }
+    function randomHadisGoster() {
+      const randomIndex = Math.floor(Math.random() * kirkHadis.length);
+      const selectedIsim = kirkHadis[randomIndex];
+      document.getElementById("nameDisplay3").textContent = selectedIsim.baslik;
+      document.getElementById("meaningDisplay3").textContent = selectedIsim.anlam;
+    }
+    function randomsiyerGoster() {
+      const randomIndex = Math.floor(Math.random() * siyerKronolojikBasliklari.length);
+      const selectedIsim = siyerKronolojikBasliklari[randomIndex];
+      document.getElementById("nameDisplay4").textContent = selectedIsim.baslik;
+      document.getElementById("meaningDisplay4").textContent = selectedIsim.anlam;
+    }
+  </script>
+</body>
+
+</html>

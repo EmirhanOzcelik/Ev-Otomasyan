@@ -1,0 +1,21 @@
+KEYPAD ŞİFRE OLUŞTURUCU KULLANIM KILAVUZU
+-----------------------------------------
+
+Kapıdan giriş yapabilmek için bir şifre tanımlamak istiyorsanız bu bölümü kullanabilirsiniz.
+
+NOT:
+- Şifreniz en az 6 haneli olmalıdır.
+- Şifre yalnızca rakamlardan oluşabilir (0-9 arası).
+
+KULLANIM:
+- Uygulamayı başlatın.
+- Başlattıktan sonra kapıdaki LCD ekranda "Şifre Oluşturma" ekranı açılacaktır.
+- Size yeni bir şifre girmeniz için yönlendirme yapılacaktır.
+- Keypad üzerinden istediğiniz şifreyi tuşlayın.
+- Şifreyi girdikten sonra "Y" tuşuna basarak kaydı tamamlayın.
+- Girilen şifre kaydedilecek ve kapı girişlerinde kullanılacaktır.
+
+ÖNEMLİ:
+- Eğer yanlışlıkla yanlış bir şifre girerseniz, işlemi iptal etmek için "N" tuşuna tıklayın.
+- 15 saniye içinde giriş yapılmazsa zaman aşımı olur ve işlem iptal edilir.
+- Ana menüye dönmek isterseniz "Ana Menüye Dön" butonuna tıklayabilirsiniz.

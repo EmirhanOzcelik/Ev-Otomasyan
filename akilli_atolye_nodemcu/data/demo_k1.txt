@@ -1,0 +1,28 @@
+SENSÖR KALİBRASYONU KULLANIM KILAVUZU
+-------------------------------------
+
+Kapının doğru çalışabilmesi için sensörlerin doğru şekilde kalibre edilmesi gerekir.  
+Bu işlem hem kapı pozisyonunu hem de kilit kontrolünü doğru algılamasını sağlar.
+
+SİSTEMDE BULUNAN SENSÖRLER:
+- Potansiyometre Sensörü: Kapı menteşesine bağlıdır. Kapının açı veya kapalı durumunu ölçer.
+- Buton Sensörü: Kapı kirişine (üst-yan bölüm) monte edilmiştir. Kapının tam kapanıp kapanmadığını algılar.
+
+KULLANIM:
+- Uygulamadan "Sensör Kalibrasyon" modunu başlatın.
+- Başladıktan sonra kapı kapalı pozisyondayken sistem sizden "Kapalı Konum" ölçümünü almanızı isteyecektir.
+  - Kapıyı tamamen kapatın ve "Kaydet" tuşuna basın.
+- Daha sonra kapı açık pozisyona getirmeniz istenecektir.
+  - Kapıyı tamamen açın ve tekrar "Kaydet" tuşuna basın.
+- Potansiyometreden alınan değerler, açık ve kapalı konumlar için kaydedilecektir.
+
+BUTON SENSÖR İÇİN:
+- Buton sensörünün kapı kapandığında basılı olduğundan emin olun.
+- Eğer buton tam basmıyorsa veya çok hassassa, mekanik ayar yapılması gerekebilir.
+
+ÖNEMLİ:
+- Kalibrasyon işlemi doğru yapılmazsa kapı açılış/kapanış kontrolleri hatalı çalışabilir.
+- Kalibrasyon işlemini kapı tamamen kapalı ve tamamen açık durumdayken yapmanız önemlidir.
+
+İŞLEMİ SONLANDIRMA:
+- Kalibrasyonu tamamladıktan sonra "Ana Menüye Dön" butonuna basabilirsiniz.
