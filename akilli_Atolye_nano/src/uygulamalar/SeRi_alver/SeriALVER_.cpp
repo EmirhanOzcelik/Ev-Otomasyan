@@ -1,22 +1,5 @@
 #include "main.h"
 
-/**
- * @brief Seri bağlantı üzerinden veri bekleyen veya okuyan yardımcı fonksiyondur.
- *
- * Bu fonksiyon, bağlantı durumu ve bekleme süresine göre ekrana uygun bilgileri yazar.
- * Hata koduna göre kullanıcıya sonuçla ilgili mesaj gösterir.
- *
- * @param sayac     Gecen süreyi milisaniye cinsinden belirtir. Kalan süre hesaplanır.
- * @param max       Beklenecek maksimum süre (ms) olarak verilir.
- * @param durum     Eğer true ise veri okunuyor, false ise veri bekleniyor olarak kabul edilir.
- * @param hata_kod  Hata durumu:
- *                  - 1: başarılı
- *                  - 2: genel hata
- *                  - 3: başlık hatası
- *                  - diğer: bağlantı yok
- *
- * @note Bu fonksiyon `ekran` nesnesi aracılığıyla görsel çıktı verir.
- */
 void __uygulamalar::seri_veri_bekle(uint16_t sayac, uint16_t max, bool durum, uint8_t hata_kod)
 {
     ekran.yaz(F("Nodemcuya"), 9, 15, 0);
